@@ -1,4 +1,3 @@
-# main.py
 
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -24,7 +23,7 @@ TEST_IMAGE_PATH = "./test_images/coral.jpg"
 MODEL_PATH = "sea_animals_classifier.keras"
 
 def prepare_data(dataset_path):
-    # Get file paths and labels
+    
     image_dir = Path(dataset_path)
     filepaths = list(image_dir.glob(r'**/*.JPG')) + list(image_dir.glob(r'**/*.jpg')) + \
                 list(image_dir.glob(r'**/*.png')) + list(image_dir.glob(r'**/*.PNG'))
@@ -34,7 +33,6 @@ def prepare_data(dataset_path):
     labels = pd.Series(labels, name='Label')
     image_df = pd.concat([filepaths, labels], axis=1)
 
-    # Split into train and test datasets
     train_df, test_df = train_test_split(image_df, test_size=0.2, shuffle=True, random_state=42)
     return train_df, test_df
 
@@ -114,22 +112,22 @@ def create_plot(history):
     val_loss = history.history['val_loss']
 
     epochs = range(len(accuracy))
-    # Plot and save the accuracy graph
+    
     plt.figure()
     plt.plot(epochs, accuracy, 'b', label='Training accuracy')
     plt.plot(epochs, val_accuracy, 'r', label='Validation accuracy')
     plt.title('Training and Validation Accuracy')
     plt.legend()
-    plt.savefig('accuracy_plot.png')  # Save as accuracy_plot.png
+    plt.savefig('accuracy_plot.png')  
     plt.close()
 
-    # Plot and save the loss graph
+   
     plt.figure()
     plt.plot(epochs, loss, 'b', label='Training loss')
     plt.plot(epochs, val_loss, 'r', label='Validation loss')
     plt.title('Training and Validation Loss')
     plt.legend()
-    plt.savefig('loss_plot.png')  # Save as loss_plot.png
+    plt.savefig('loss_plot.png')  
     plt.close()
 def main():
     if tf.config.list_physical_devices('GPU'):
